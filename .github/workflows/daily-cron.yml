@@ -1,0 +1,32 @@
+name: Daily Process APIs
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Every 24 hours at 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  run-daily-processes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run daily process API calls
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          set -euo pipefail
+
+          URLS=(
+            "https://www.goldenbull.pro/api/process-daily-investment-returns"
+            # "https://www.winclo.ai/api/process-monthly-credits-allocation"
+          )
+
+          for url in "${URLS[@]}"; do
+            echo "POST $url"
+            status=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "x-cron-secret: ${CRON_SECRET}" --max-time 60 "$url")
+            echo "HTTP $status for $url"
+            if [ "$status" -ge 400 ]; then
+              echo "Request to $url failed with status $status" >&2
+              exit 1
+            fi
+          done
+
