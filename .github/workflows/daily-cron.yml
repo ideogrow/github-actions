@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run daily process API calls
-        env:
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           set -euo pipefail
+
+          CRON_SECRET="my-very-secret-key"
+          echo "✅ Using hardcoded CRON_SECRET"
 
           URLS=(
             "https://www.goldenbull.pro/api/process-daily-investment-returns"
@@ -21,12 +22,16 @@ jobs:
           )
 
           for url in "${URLS[@]}"; do
-            echo "POST $url"
+            echo "🔄 POST $url"
             status=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "x-cron-secret: ${CRON_SECRET}" --max-time 60 "$url")
             echo "HTTP $status for $url"
+            
             if [ "$status" -ge 400 ]; then
-              echo "Request to $url failed with status $status" >&2
+              echo "❌ Request to $url failed with status $status" >&2
               exit 1
+            else
+              echo "✅ Success for $url"
             fi
           done
+
 
