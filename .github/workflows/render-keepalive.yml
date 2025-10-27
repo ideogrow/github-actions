@@ -12,12 +12,21 @@ jobs:
       - name: Health check
         run: |
           set -euo pipefail
-          url="https://api.winclo.ai/"
-          code=$(curl -s -o /dev/null -w "%{http_code}" -X GET "$url")
-          echo "GET $url -> $code"
-          if [ "$code" -ne 200 ]; then
-            echo "Non-200 from $url: $code" >&2
-            exit 1
-          fi
+          
+          # List of APIs to keep alive
+          apis=(
+            "https://api.winclo.ai/"
+            "https://gestion.senatrack.app/api"
+          )
+          
+          # Check each API
+          for url in "${apis[@]}"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -X GET "$url")
+            echo "GET $url -> $code"
+            if [ "$code" -ne 200 ]; then
+              echo "Non-200 from $url: $code" >&2
+              exit 1
+            fi
+          done
 
 
