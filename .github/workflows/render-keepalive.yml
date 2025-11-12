@@ -15,9 +15,9 @@ jobs:
           
           # List of APIs to keep alive
           apis=(
-            "https://api.winclo.ai/"
+            "https://api.winclo.ai"
             "https://api.packayoub.com"
-            "https://api.senatrack.app/"
+            "https://api.senatrack.app"
           )
           
           # Check each API
