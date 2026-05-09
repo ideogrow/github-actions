@@ -18,7 +18,6 @@ jobs:
 
           URLS=(
             https://api.goldenbull.pro/cron/process-daily-investment-returns"
-            # "https://www.winclo.ai/api/process-monthly-credits-allocation"
           )
 
           for url in "${URLS[@]}"; do
