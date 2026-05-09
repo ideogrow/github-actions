@@ -17,7 +17,7 @@ jobs:
           echo "✅ Using hardcoded CRON_SECRET"
 
           URLS=(
-            https://api.goldenbull.pro/cron/process-daily-investment-returns"
+            "https://api.goldenbull.pro/cron/process-daily-investment-returns"
           )
 
           for url in "${URLS[@]}"; do
