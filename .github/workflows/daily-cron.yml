@@ -17,7 +17,7 @@ jobs:
           echo "✅ Using hardcoded CRON_SECRET"
 
           URLS=(
-            "https://www.goldenbull.pro/api/process-daily-investment-returns"
+            https://api.goldenbull.pro/cron/process-daily-investment-returns"
             # "https://www.winclo.ai/api/process-monthly-credits-allocation"
           )
 
