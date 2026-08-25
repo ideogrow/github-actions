@@ -1,6 +1,6 @@
 GitHub Actions for Ideogrow
 
-This repository centralizes automations for the Ideogrow projects (including Winclo). Workflows live in `.github/workflows/` and are designed to be org-wide and repo-agnostic.
+This repository centralizes automations for the Ideogrow projects (including Winclo External ). Workflows live in `.github/workflows/` and are designed to be org-wide and repo-agnostic.
 
 Workflows
 
